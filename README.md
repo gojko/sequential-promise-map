@@ -1,6 +1,6 @@
 # sequential-promise-map
 
-A simple sequential version of `Promise.map`, useful to transform an array of values into asynchronous promises, but need to limit parallel execution of promise generators (eg to prevent hitting external resource thresholds, or to guarantee that things need to happen in a particular sequence).
+A simple sequential version of `Promise.map`, useful to transform an array of values into asynchronous promises, when you need to limit parallel execution of promise generators (eg to prevent hitting external resource thresholds, or to guarantee that things need to happen in a particular sequence).
 
 The function  has no dependencies so it will work in Node or browsers, as long as native Promises are supported.
 
