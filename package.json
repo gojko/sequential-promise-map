@@ -6,6 +6,10 @@
   "scripts": {
     "test": "node spec/support/jasmine-runner.js"
   },
+  "files": [
+    "src",
+    "*.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gojko/sequential-promise-map.git"
