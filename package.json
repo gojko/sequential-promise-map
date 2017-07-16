@@ -1,0 +1,26 @@
+{
+  "name": "sequential-promise-map",
+  "version": "1.0.0",
+  "description": "A simple sequential version of Promise.map",
+  "main": "src/sequential-promise-map.js",
+  "scripts": {
+    "test": "node spec/support/jasmine-runner.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gojko/sequential-promise-map.git"
+  },
+  "keywords": [
+    "Promise"
+  ],
+  "author": "Gojko Adzic <gojko@neuri.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gojko/sequential-promise-map/issues"
+  },
+  "homepage": "https://github.com/gojko/sequential-promise-map#readme",
+  "devDependencies": {
+    "jasmine": "^2.6.0",
+    "jasmine-spec-reporter": "^4.1.1"
+  }
+}
