@@ -36,6 +36,11 @@ describe('sequentialPromiseMap', () => {
 			expect(result).toEqual([]);
 		}).then(done, done.fail);
 	});
+	it('calls the generator with the argument and an index', done => {
+		sequentialPromiseMap(['a', 'b', 'c'], (txt, index) => Promise.resolve(txt + index))
+			.then(result => expect(result).toEqual(['a0', 'b1', 'c2']))
+			.then(done, done.fail);
+	});
 	it('executes a single promise mapping', done => {
 		sequentialPromiseMap(['a'], generator).then(result => {
 			expect(promises.length).toEqual(1);
