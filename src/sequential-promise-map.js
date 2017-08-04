@@ -1,10 +1,10 @@
 module.exports = function sequentialPromiseMap(array, generator) {
 	'use strict';
 	if (!Array.isArray(array)) {
-		return Promise.reject('the first argument must be an array');
+		throw new Error('the first argument must be an array');
 	}
 	if (typeof generator !== 'function') {
-		return Promise.reject('the second argument must be a function');
+		throw new Error('the second argument must be a function');
 	}
 	let index = 0;
 	const results = [],

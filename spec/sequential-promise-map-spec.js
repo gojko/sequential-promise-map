@@ -88,16 +88,10 @@ describe('sequentialPromiseMap', () => {
 		waitFor(0).then(promiseContainer => promiseContainer.promise.resolve('aaa'));
 		waitFor(1).then(promiseContainer => promiseContainer.promise.reject('boom'));
 	});
-	it('rejects if the first argument is not an array', done => {
-		sequentialPromiseMap({}, generator)
-			.then(done.fail)
-			.catch(e => expect(e).toEqual('the first argument must be an array'))
-			.then(done, done.fail);
+	it('rejects if the first argument is not an array', () => {
+		expect(() => sequentialPromiseMap({}, generator)).toThrowError('the first argument must be an array');
 	});
-	it('rejects if the second argument is not a function', done => {
-		sequentialPromiseMap(['x'], 2)
-			.then(done.fail)
-			.catch(e => expect(e).toEqual('the second argument must be a function'))
-			.then(done, done.fail);
+	it('rejects if the second argument is not a function', () => {
+		expect(() => sequentialPromiseMap(['x'], 2)).toThrowError('the second argument must be a function');
 	});
 });
