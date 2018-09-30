@@ -10,7 +10,7 @@ module.exports = function sequentialPromiseMap(array, generator) {
 	const results = [],
 		items = (array && array.slice()) || [],
 		sendSingle = function (item) {
-			return generator(item, index++)
+			return generator(item, index++, array)
 			.then(result => results.push(result));
 		},
 		sendAll = function () {

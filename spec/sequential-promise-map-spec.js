@@ -36,9 +36,9 @@ describe('sequentialPromiseMap', () => {
 			expect(result).toEqual([]);
 		}).then(done, done.fail);
 	});
-	it('calls the generator with the argument and an index', done => {
-		sequentialPromiseMap(['a', 'b', 'c'], (txt, index) => Promise.resolve(txt + index))
-			.then(result => expect(result).toEqual(['a0', 'b1', 'c2']))
+	it('calls the generator with the argument, index and array', done => {
+		sequentialPromiseMap(['a', 'b', 'c'], (txt, index, arr) => Promise.resolve(txt + index + JSON.stringify(arr)))
+			.then(result => expect(result).toEqual(['a0["a","b","c"]', 'b1["a","b","c"]', 'c2["a","b","c"]']))
 			.then(done, done.fail);
 	});
 	it('executes a single promise mapping', done => {
