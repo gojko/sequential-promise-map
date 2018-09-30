@@ -17,6 +17,14 @@ sequentialPromiseMap(arrayOfValues, promiseGenerator).then(....)
 
 ```
 
+the `promiseGenerator` parameter should be a function:
+
+```js
+promiseGenerator = function(currentElement, indexOfCurrent, originalArray) {
+  ...
+}
+```
+
 The function will resolve will contain an array of Promise results, in the same order as the arguments, or reject with the first rejection.
 
 
@@ -27,7 +35,7 @@ const sequentialPromiseMap = require('sequential-promise-map');
 
 const fruits = ['apples', 'oranges', 'grapes'];
 
-const invert = function (name) {
+const invert = function (name/*, index, array*/) {
   return new Promise(resolve => {
     resolve(name.split('').reverse().join(''));
   });
