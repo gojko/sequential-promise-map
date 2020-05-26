@@ -13,19 +13,19 @@ npm install sequential-promise-map
 ### Usage
 
 ```js
-sequentialPromiseMap(arrayOfValues, promiseGenerator).then(....) 
-
+sequentialPromiseMap(arrayOfValues, promiseGenerator, /*batchSize*/).then(....) 
 ```
 
-the `promiseGenerator` parameter should be a function:
-
+* `arrayOfValues` should be an `Array` of elements that will be asynchronously processed
+* `promiseGenerator` parameter should be a function to process each element of the array, receiving up to three arguments:
 ```js
 promiseGenerator = function(currentElement, indexOfCurrent, originalArray) {
   ...
 }
 ```
+* `batchSize` is an optional argument, a positive integer specifying the maximum batch size for parallel processing. If not set, the elements will be processed one by one. Set this to a value greater than 1 to allow for parallelisation. 
 
-The function will resolve will contain an array of Promise results, in the same order as the arguments, or reject with the first rejection.
+The function will resolve will contain an array of `Promise` results, in the same order as the arguments, or reject with the first rejection.
 
 
 ### Example

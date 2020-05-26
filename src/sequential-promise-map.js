@@ -1,4 +1,4 @@
-module.exports = function sequentialPromiseMap(array, generator) {
+module.exports = function sequentialPromiseMap(array, generator, batchArg) {
 	'use strict';
 	if (!Array.isArray(array)) {
 		throw new Error('the first argument must be an array');
@@ -6,20 +6,24 @@ module.exports = function sequentialPromiseMap(array, generator) {
 	if (typeof generator !== 'function') {
 		throw new Error('the second argument must be a function');
 	}
-	let index = 0;
-	const results = [],
-		items = (array && array.slice()) || [],
-		sendSingle = function (item) {
-			return generator(item, index++, array)
-			.then(result => results.push(result));
+	if (batchArg && (!Number.isInteger(batchArg) || batchArg < 1)) {
+		throw new Error('the third argument must be undefined or a positive integer');
+	}
+	const batchSize = batchArg || 1,
+		results = [],
+		processBatch = function (batch, startIndex) {
+			const shiftIndexAndProcess = (element, index) => generator(element, index + startIndex, array);
+			return Promise.all(batch.map(shiftIndexAndProcess));
 		},
-		sendAll = function () {
-			if (!items.length) {
-				return Promise.resolve(results);
-			} else {
-				return sendSingle(items.shift())
-				.then(sendAll);
+		sendNextBatch = function (startIndex) {
+			if (startIndex >= array.length) {
+				return Promise.resolve();
 			}
+			const next = array.slice(startIndex, startIndex + batchSize);
+			return processBatch(next, startIndex)
+				.then(nextResults => results.push.apply(results, nextResults))
+				.then(() => sendNextBatch(startIndex + batchSize));
 		};
-	return sendAll();
+	return sendNextBatch(0)
+		.then(() => results);
 };
