@@ -1,6 +1,6 @@
 {
   "name": "sequential-promise-map",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple sequential version of Promise.map",
   "main": "src/sequential-promise-map.js",
   "scripts": {
